@@ -1,0 +1,35 @@
+{% extends "clojure_pta/views/templates/basket.html" %}
+{% block main %}
+  <div class="events">
+    <div>
+      <h1>Amazing List</h1>
+      <div>
+        This is an amazing list of events. Go on! Select one and start buying your
+        tickets.
+      </div>
+    </div>
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+              <th>Title</th>
+              <th>Subtitle</th>
+              <th>Start</th>
+              <th>End</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+          <tr class="pointer">
+            <td>{{event|get:"title"|get:"en"}}</td>
+            <td>{{event|get:"subtitle"|get:"en"}}</td>
+            <td>{{event|get:"event_start"|date:"yyyy-MM-dd"}}</td>
+            <td>{{event|get:"event_end"|date:"yyyy-MM-dd"}}</td>
+            <input type="hidden" value='{{event|get:"uri"}}' />
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

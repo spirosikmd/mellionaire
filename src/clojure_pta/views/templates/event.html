@@ -1,0 +1,97 @@
+{% extends "clojure_pta/views/templates/basket.html" %}
+{% block main %}
+  <div class="event-main">
+    <h1>{{event|get:"title"|get:"en"}}</h1>
+    <h2>{{event|get:"subtitle"|get:"en"}}</h2>
+    {% if location %}
+    <div>
+      <span class="glyphicon glyphicon-globe"></span>
+      <span class="label label-info">
+        {{location|get:"name"|get:"en"}}, {{location|get:"city"|get:"en"}}, {{location|get:"country"}} {{location|get:"zipcode"}}
+      </span>
+    </div>
+    {% endif %}
+    <div>Starts on: {{event|get:"event_start"|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+    <div>Ends on: {{event|get:"event_end"|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+    <div class="sales">
+      <h3>Sales</h3>
+      <div>Start on: {{event|get:"sale_start"|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+      <div>End on: {{event|get:"sale_end"|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+    </div>
+  </div>
+  <div class="products">
+    <h3>Products</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Subtitle</th>
+          <th>Price</th>
+          <th>Availability</th>
+          <th>Sales Start</th>
+          <th>Sales End</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for product in products %}
+        <tr class="add-item pointer">
+          <td>{{product|get:"name"|get:"en"}}</td>
+          <td>{{product|get:"subtitle"|get:"en"}}</td>
+          <td>{{product|get:"price"|price}}</td>
+          <td>{{product|get:"availability"}}</td>
+          <td>{{product|get:"sale_start"|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+          <td>{{product|get:"sale_end"|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+          <input type="hidden" name="uri" value='{{product|get:"uri"}}' />
+          <input type="hidden" name="price" value='{{product|get:"price"|json}}' />
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="event-more">
+    <h3>More about this awesome event!</h3>
+    <ul class="list-inline">
+    {% if event|get:"has_wardrobe" %}
+      <li>wardrobe</li>
+    {% endif %}
+    {% if event|get:"is_accessible_for_disabled" %}
+      <li>disabled</li>
+    {% endif %}
+    {% if event|get:"is_indoor" %}
+      <li>indoor</li>
+    {% endif %}
+    {% if event|get:"is_outdoor" %}
+      <li>outdoor</li>
+    {% endif %}
+    {% if event|get:"requires_id" %}
+      <li>id</li>
+    {% endif %}
+    </ul>
+    <p>{{event|get:"description"|get:"en"}}</p>
+    <h2>{{event|get:"long_description"|get:"en"}}</h2>
+    <dl class="dl-horizontal">
+      <dt>Accessibility</dt>
+      <dd>{{event|get:"accessibility"|get:"en"}}</dd>
+      <dt>Dress Code</dt>
+      <dd>{{event|get:"door_policy_dress_code"|get:"en"}}</dd>
+      <dt>Facilities</dt>
+      <dd>{{event|get:"facilities"|get:"en"}}</dd>
+    {% if event:get:"minimum_age" %}
+      <dt>Age resitriction</dt>
+      <dd>{{event:get:"minimum_age"}}</dd>
+    {% endif %}
+    {% if event:get:"number_of_visitors" %}
+      <dt>Number of visitors</dt>
+      <dd>{{event:get:"number_of_visitors"}}1</dd>
+    {% endif %}
+      <dt>Genres</dt>
+      <dd>
+        <ul class="list-inline">
+        {% for genre in event|get:"genres" %}
+          <li>{{genre}}</li>
+        {% endfor %}
+        </ul>
+      </dd>
+    </dl>
+  </div>
+{% endblock %}

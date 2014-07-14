@@ -1,0 +1,189 @@
+{% extends "clojure_pta/views/templates/base.html" %}
+{% block content %}
+  <div class="row-fluid">
+    <div class="span8">
+      <div class="contents">
+      {% if user %}
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#update" data-toggle="tab">Profile</a></li>
+          <li><a href="#orders" data-toggle="tab">Orders</a></li>
+          <li><a href="#settings" data-toggle="tab">Settings</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="update">
+            <form class="form-horizontal" action="/profile/update" method="post" role="form">
+              <div class="form-group">
+                <label for="first-name" class="col-sm-2 control-label">first name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="first-name" name="first_name" value="{{user.first_name}}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="last-name" class="col-sm-2 control-label">last name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="last-name" name="last_name" value="{{user.last_name}}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="password" name="password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="date_of_birth" class="col-sm-2 control-label">date of birth</label>
+                <div class="col-sm-2">
+                  <input type="text" id="date_of_birth" name="date_of_birth" value="{{user.date_of_birth|date:yyyy-MM-dd}}" data-date-format="yyyy-mm-dd" class="datepicker form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="gender" class="col-sm-2 control-label">gender</label>
+                <div class="col-sm-10">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="gender" id="male" value="1" {% if user.gender = 1 %}checked{% endif %}>
+                      male
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="gender" id="female" value="2" {% if user.gender = 2 %}checked{% endif %}>
+                      female
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country" class="col-sm-2 control-label">country</label>
+                <div class="col-sm-10">
+                  <select class="form-control" name="country" id="country">
+                    <option {% ifequal user.country "NL" %}selected="selected"{% endifequal %}>NL</option>
+                    <option {% ifequal user.country "US" %}selected="selected"{% endifequal %}>US</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">update</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="orders">
+            <div>
+              This is an overview of your orders. You can download tickets you already bought, or cancel any of your orders.
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>State</th>
+                  <th>Tickets</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for order in orders %}
+                <tr>
+                  <td>{{order|get:"state"}}</td>
+                  <td>
+                    <a type="button" class="btn btn-primary" class="etickets" href='{{order|get:"etickets"}}'>download etickets</a>
+                  </td>
+                  <td>{{order|get:"total"|price}}</td>
+                  <td>
+                    <button type="button" class="btn btn-warning">cancel</button>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="settings">
+            settings
+          </div>
+        </div>
+      {% else %}
+        <form class="form-horizontal" action="/profile/register" method="post" role="form">
+          <div class="form-group">
+            <label for="first-name" class="col-sm-2 control-label">first name</label>
+            <div class="col-sm-10">
+              <input type="text" name="first_name" class="form-control" id="first-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="last-name" class="col-sm-2 control-label">last name</label>
+            <div class="col-sm-10">
+              <input type="text" name="last_name" class="form-control" id="last-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">email</label>
+            <div class="col-sm-10">
+              <input type="email" name="email" class="form-control" id="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">password</label>
+            <div class="col-sm-10">
+              <input type="password" name="password" class="form-control" id="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="date_of_birth" class="col-sm-2 control-label">date of birth</label>
+            <div class="col-sm-2">
+              <input type="text" id="date_of_birth" name="date_of_birth" data-date-format="yyyy-mm-dd" class="datepicker form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gender" class="col-sm-2 control-label">gender</label>
+            <div class="col-sm-10">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="gender" id="male" value="1" checked>
+                  male
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="gender" id="female" value="2">
+                  female
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country" class="col-sm-2 control-label">country</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="country" id="country">
+                <option>NL</option>
+                <option>US</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">register</button>
+            </div>
+          </div>
+        </form>
+      {% endif %}
+      {% if message %}
+        <div id="message">
+          <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{message}}
+          </div>
+        </div>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

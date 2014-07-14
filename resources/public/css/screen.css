@@ -1,0 +1,33 @@
+html,
+body {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	height: 100%;
+	padding-top: 40px;
+}
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+#footer {
+  height: 60px;
+  background-color: #eee;
+}
+#footer-text {
+	margin-top: 20px;
+}
+.pointer {
+	cursor: pointer;
+}
+.vcenter {
+  vertical-align: middle;
+}
+#etickets {
+	display: none;
+}
+#costs {
+	display: none;
+}

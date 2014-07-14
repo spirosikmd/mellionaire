@@ -1,0 +1,30 @@
+{% extends "clojure_pta/views/templates/base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1>Welcome to mellionaire</h1>
+    <p>Time to start looking for events!</p>
+    <p><a class="btn btn-primary btn-lg" href="/events">start &raquo;</a></p>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span8">
+      <div class="contents">
+        {{content|safe}}
+      </div>
+      <div class="merchants">
+        <h2>Merchants</h2>
+        <div>
+          <p>Huge thanks to the following companies for providing us with all
+            these amazing events!</p>
+        </div>
+        <div>
+          <ul class="list-group">
+          {% for merchant in merchants %}
+            <li class="list-group-item">{{merchant|get:"name"|get:"en"}}</li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

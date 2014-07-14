@@ -1,0 +1,35 @@
+{% extends "clojure_pta/views/templates/base.html" %}
+{% block content %}
+  <div class="row-fluid">
+    <div class="col-md-8">
+      {% block main %}
+      {% endblock %}
+    </div>
+    <div class="col-md-4">
+      <h3>Basket</h3>
+      <div class="items">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Qty</th>
+            </tr>
+          </thead>
+          <tbody class="product-list">
+          </tbody>
+        </table>
+        <div>
+          <strong>Total<span id="costs"> (including costs)</span>:</strong> <span class="total">0.00</span>
+        </div>
+        {% if user %}
+        <div>
+          <button type="button" class="btn btn-success" id="basket-confirm">confirm</button>
+          <a type="button" class="btn btn-primary" id="etickets" href="">download etickets</a>
+          <button type="button" class="btn btn-danger" id="basket-reset" href="">reset</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
