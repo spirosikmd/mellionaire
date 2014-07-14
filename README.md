@@ -1,4 +1,4 @@
-# clojure-pta
+# mellionaire
 
 A simple demo event ticketing store built with [luminus clojure web framework](http://www.luminusweb.net/). The
 ticketing functionality is provided by [Paylogic Ticketing API](https://doc.sandbox.paylogic.com/).
