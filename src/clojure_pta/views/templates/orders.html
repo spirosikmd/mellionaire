@@ -9,7 +9,8 @@
       <tr>
         <th>State</th>
         <th>Tickets</th>
-        <th>Total</th>
+        <th>Date</th>
+        <th>Total (with costs)</th>
         <th></th>
       </tr>
     </thead>
@@ -20,6 +21,7 @@
         <td>
           <a type="button" class="btn btn-primary" class="etickets" href='{{order|get:"etickets"}}'>download etickets</a>
         </td>
+        <td>{{order|get:"created"|date:"yyyy-MM-dd HH:mm:ss"}}</td>
         <td>{{order|get:"total"|price}}</td>
         <td>
           <button type="button" class="btn btn-warning">cancel</button>
