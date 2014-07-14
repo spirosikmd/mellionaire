@@ -15,6 +15,7 @@
           <ul class="nav navbar-nav">
             <li class="{{home-selected}}"><a href="{{servlet-context}}/">home</a></li>
             <li class="{{events-selected}}"><a href="{{servlet-context}}/events">events</a></li>
+            <li class="{{orders-selected}}"><a href="{{servlet-context}}/orders">orders</a></li>
           </ul>
         {% if not user %}
           <form id="login-form" class="navbar-form navbar-right" action="/profile/login" method="post">

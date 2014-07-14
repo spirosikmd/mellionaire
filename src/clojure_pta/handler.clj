@@ -4,6 +4,7 @@
             [clojure-pta.routes.profile :refer [profile-routes]]
             [clojure-pta.routes.event :refer [event-routes]]
             [clojure-pta.routes.basket :refer [basket-routes]]
+            [clojure-pta.routes.order :refer [order-routes]]
             [clojure-pta.middleware :as middleware]
             [clojure-pta.models.schema :as schema]
             [noir.util.middleware :refer [app-handler]]
@@ -50,7 +51,7 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [home-routes profile-routes event-routes basket-routes app-routes]
+           [home-routes profile-routes event-routes basket-routes order-routes app-routes]
            ;; add custom middleware here
            :middleware [middleware/template-error-page
                         middleware/log-request]

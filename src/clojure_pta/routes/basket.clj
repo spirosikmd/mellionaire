@@ -44,18 +44,13 @@
   (catch Exception e (timbre/info e) nil)))
 
 (defn confirm-basket [data]
-  "first create basket, then add the products to basket and then confirm it"
+  "first create basket, then add the products to basket and return the basket uri"
   (let [basket_uri ((util/parse-response (create-basket)) "uri")]
     (doseq [[uid product] (data :products)]
       (let [product_uri (util/get-resource-uri "products" (get product :uid))]
         (create-ticket basket_uri product_uri)))
-    (try
-      (let [basket_uid (util/get-resource-uid basket_uri)]
-        (client/post (str (util/get-pta-base-url) "baskets/" basket_uid "/confirm")
-          {:basic-auth [(private/get-app-id) (private/get-app-secret)]
-           :content-type :json
-           :accept :json}))
-    (catch Exception e (timbre/info e) nil))))
+    basket_uri
+  ))
 
 (defroutes basket-routes
   (POST "/basket/confirm"

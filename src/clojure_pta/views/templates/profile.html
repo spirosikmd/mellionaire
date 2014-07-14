@@ -7,7 +7,6 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
           <li class="active"><a href="#update" data-toggle="tab">Profile</a></li>
-          <li><a href="#orders" data-toggle="tab">Orders</a></li>
           <li><a href="#settings" data-toggle="tab">Settings</a></li>
         </ul>
         <!-- Tab panes -->
@@ -76,35 +75,6 @@
                 </div>
               </div>
             </form>
-          </div>
-          <div class="tab-pane fade" id="orders">
-            <div>
-              This is an overview of your orders. You can download tickets you already bought, or cancel any of your orders.
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>State</th>
-                  <th>Tickets</th>
-                  <th>Total</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for order in orders %}
-                <tr>
-                  <td>{{order|get:"state"}}</td>
-                  <td>
-                    <a type="button" class="btn btn-primary" class="etickets" href='{{order|get:"etickets"}}'>download etickets</a>
-                  </td>
-                  <td>{{order|get:"total"|price}}</td>
-                  <td>
-                    <button type="button" class="btn btn-warning">cancel</button>
-                  </td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
           </div>
           <div class="tab-pane fade" id="settings">
             settings

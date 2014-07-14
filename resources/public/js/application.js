@@ -129,15 +129,28 @@ jQuery(function($) {
             "data": _this.data
           }
         })
+        // Upon success of basket confirm, create an order with the basket uri.
         .success(function(response) {
-          _this.data.etickets = response.etickets;
-          _this.save();
-          _this.confirmButton.hide();
-          var priceText = utils.getPriceText(response.total);
-          _this.totalElement.text(priceText);
-          _this.costsText.show();
-          _this.eticketsButton.attr("href", response.etickets).show();
-          _this.resetButton.prop("disabled", false);
+          $.ajax({
+            type: "POST",
+            url: "/order/create",
+            data: {
+              "basket_uri": response
+            }
+          }).
+          success(function(response) {
+            _this.data.etickets = response.etickets;
+            _this.save();
+            _this.confirmButton.hide();
+            var priceText = utils.getPriceText(response.total);
+            _this.totalElement.text(priceText);
+            _this.costsText.show();
+            _this.eticketsButton.attr("href", response.etickets).show();
+            _this.resetButton.prop("disabled", false);
+          })
+          .fail(function(request) {
+            showAlert(request.responseText);
+          });
         })
         .fail(function(request) {
           showAlert(request.responseText);
@@ -310,7 +323,7 @@ jQuery(function($) {
 
 
 
-  // related to PeerJS, not yet functioning
+  // Code related to PeerJS, but not yet functioning.
   var Connection = (function() {
     function Connection(peerID) {
       var _this = this;

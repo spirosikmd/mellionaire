@@ -20,26 +20,16 @@
          {:profile__eq profile_uri}})
   (catch Exception e (timbre/info e) nil)))
 
-(defn get-orders []
-  "get a list of all completed orders, baskets in state `completed`"
-  (let [user (db/get-user (util/get-user))]
-    (cond
-
-      ((complement nil?) user)
-      (let [profile_uri (util/get-resource-uri-with-revision "profiles" (get user :uid) (get user :revision))]
-        (util/parse-response (get-baskets-by-profile profile_uri))))))
-
 (defn profile-page
   [& {:keys [message]
     :or {message ""}}]
   "render the profile page"
     (layout/render "profile.html"
       {:user (db/get-user (util/get-user))
-       :message message
-       :orders (get-orders)}))
+       :message message}))
 
 (defn get-profile [uri]
-  "get the profile give a profile uri"
+  "get the profile given a profile uri"
   (client/get (str (util/get-pta-base-url) "profiles")
     {:basic-auth [(private/get-app-id) (private/get-app-secret)]
      :content-type :json

@@ -1,6 +1,6 @@
 (defproject
   clojure-pta
-  "0.1.0-SNAPSHOT"
+  "0.2.0"
   :repl-options
   {:init-ns clojure-pta.repl}
   :dependencies
@@ -38,9 +38,9 @@
    {:dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.2.2"]],
     :env {:dev true}}}
   :url
-  "http://example.com/FIXME"
+  "https://github.com/spirosikmd/mellionaire"
   :plugins
   [[lein-ring "0.8.10"] [lein-environ "0.4.0"]]
   :description
-  "FIXME: write description"
+  "A simple demo event ticketing store built with luminus clojure web framework. The ticketing functionality is provided by Paylogic Ticketing API."
   :min-lein-version "2.0.0")

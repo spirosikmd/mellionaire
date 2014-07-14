@@ -1,0 +1,32 @@
+{% extends "clojure_pta/views/templates/base.html" %}
+{% block content %}
+<div id="orders">
+  <div>
+    This is an overview of your orders. You can download tickets you already bought, or cancel any of your orders.
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>State</th>
+        <th>Tickets</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+      <tr>
+        <td>{{order|get:"state"}}</td>
+        <td>
+          <a type="button" class="btn btn-primary" class="etickets" href='{{order|get:"etickets"}}'>download etickets</a>
+        </td>
+        <td>{{order|get:"total"|price}}</td>
+        <td>
+          <button type="button" class="btn btn-warning">cancel</button>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
