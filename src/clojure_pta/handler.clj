@@ -8,11 +8,17 @@
             [clojure-pta.middleware :as middleware]
             [clojure-pta.models.schema :as schema]
             [noir.util.middleware :refer [app-handler]]
+            [noir.util.route :refer [restricted]]
+            [noir.session :as session]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]))
+
+(defn user-access [request]
+  "access only to logged in users"
+  (session/get :user))
 
 (defroutes app-routes
   (route/resources "/")
@@ -56,7 +62,7 @@
            :middleware [middleware/template-error-page
                         middleware/log-request]
            ;; add access rules here
-           :access-rules []
+           :access-rules [user-access]
            ;; serialize/deserialize the following data formats
            ;; available formats:
            ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html

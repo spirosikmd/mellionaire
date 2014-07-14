@@ -6,7 +6,8 @@
     [clojure-pta.views.layout :as layout]
     [clojure-pta.util :as util]
     [clojure-pta.private :as private]
-    [clojure-pta.models.db :as db]))
+    [clojure-pta.models.db :as db]
+    [noir.util.route :as route]))
 
 (defn create-order [basket_uri]
   "create an order given a basket uri"
@@ -48,7 +49,7 @@
        :orders (get-orders)}))
 
 (defroutes order-routes
-  (GET "/orders" [] (orders-page))
+  (GET "/orders" [] (route/restricted (orders-page)))
   (POST "/order/create"
     [basket_uri]
     (create-order basket_uri)))
